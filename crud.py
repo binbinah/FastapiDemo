@@ -43,11 +43,13 @@ class OnlineSlaCrud:
 
     def read_online_data(
         self,
+            page:int=1,
+            limit: int = 10,
     ):
         query = (
-            self.session.query(models.User, models.Item)
+            self.session.query(models.User)
             .join(models.Item)
             .filter(models.Item.owner_email == models.User.email)
         )
-        print(query)
-        return query.all()
+        total = query.count()
+        return query.offset((page - 1) * limit).limit(limit).all(), page, limit, total

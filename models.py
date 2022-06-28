@@ -14,6 +14,9 @@ class User(Base):
 
     items = relationship("Item", back_populates="owner")
 
+    def __repr__(self):
+        return f"<User>:email:{self.email}"
+
 
 class Item(Base):
     __tablename__ = "items"
@@ -24,3 +27,6 @@ class Item(Base):
     owner_email = Column(String(64), ForeignKey("users.email"))
 
     owner = relationship("User", back_populates="items")
+
+    def __repr__(self):
+        return f"<Item>:ForeignKey:{self.owner_email}, {self.title}"

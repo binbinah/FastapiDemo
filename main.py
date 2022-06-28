@@ -63,6 +63,7 @@ def read_users():
     crud_users = crud.OnlineSlaCrud()
     resp = crud_users.read_online_data()
     print(resp)
-    for item in resp:
+    for item in resp[0]:
         print(item)
+        print(item.email, item.is_active, item.items)
     return JSONResponse({})
